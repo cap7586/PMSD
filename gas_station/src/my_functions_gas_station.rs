@@ -8,11 +8,11 @@ use std::fs::File; //Used to work with files
 use std::fs::{OpenOptions, rename};
 use csv::{ReaderBuilder, WriterBuilder, StringRecord};//use csv::{ReaderBuilder, WriterBuilder};
 
-use std::any::type_name;
+/*use std::any::type_name;
 
 pub fn type_of<T>(_: &T) -> &'static str {
     type_name::<T>()
-}
+}*/
 
 pub enum Operation {
     Sell,
@@ -25,7 +25,7 @@ pub enum Operation {
     Exit,
 }
 
-impl Item {
+/*impl Item {
     // Constructor method to create an Item instance from a StringRecord
     fn from_record(record: &StringRecord) -> Result<Item, Box<dyn Error>> {
         Ok(Item {
@@ -41,7 +41,7 @@ impl Item {
         self.id == target_id
     }*/
 }
-
+*/
 
 #[derive(Clone)] 
 pub struct Item {
@@ -282,7 +282,6 @@ pub fn lets_sell_something(file_path: &str, id: u32)-> Result<(), Box<dyn Error>
 	let file = File::open(file_path)?;
 	let mut rdr = ReaderBuilder::new().has_headers(true).from_reader(file);
     let mut total_for_product: u32;
-    let mut grand_total: i32;
 
 	let quantity_input_user = get_user_input("Enter Quantity: ") as u32;
 

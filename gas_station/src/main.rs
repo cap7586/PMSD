@@ -1,6 +1,6 @@
-mod my_functions_gas_station_paez;
+mod my_functions_gas_station;
 
-use my_functions_gas_station_paez::*;
+use my_functions_gas_station::*;
 
 use std::env;
 
