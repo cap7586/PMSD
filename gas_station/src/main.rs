@@ -16,12 +16,12 @@ fn main() {
     let mut user_account_name_input = String::new();
     println!("Enter your User Name: ");
     io::stdin().read_line(&mut user_account_name_input).expect("Failed to read line");
-    let mut user_account_name_input = user_account_name_input.trim();
+    let user_account_name_input = user_account_name_input.trim();
 
     let mut user_account_password_input = String::new();
     println!("Enter your Password: ");
     io::stdin().read_line(&mut user_account_password_input).expect("Failed to read line");
-    let mut user_account_password_input = user_account_password_input.trim();
+    let user_account_password_input = user_account_password_input.trim();
 
     println!("{}", user_account_password_input);
 

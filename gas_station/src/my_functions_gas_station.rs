@@ -1,4 +1,5 @@
 //my_functions_gas_station_paez.rs
+#![allow(unused_assignments)]
 
 use std::io; //io library comes from the standard library std
 
