@@ -29,9 +29,4 @@ fn main() {
         Ok(()) => my_program_loop(&inventory_file),
         Err(err) => eprintln!("Error: {}", err),
     }
-    // loop {
-    //     print_menu();
-    //     let in_operation = menu_get_user_input("Enter your choice:");
-    //     match_operation(in_operation, &inventory_file);
-    // }
 }

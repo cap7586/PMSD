@@ -333,7 +333,6 @@ pub fn check_user_password(file_path: &str, user_account_name: &str, user_passwo
     for result in rdr.records(){
         let record = result.unwrap();
         if user_account_name == &record[3] && user_password == &record[4] {
-            //println("Wrong combination of User Name and Password! \n");
             return Ok(());
         }
     }
