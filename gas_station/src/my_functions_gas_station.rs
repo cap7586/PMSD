@@ -6,13 +6,7 @@ use std::io; //io library comes from the standard library std
 use std::error::Error; //Used for error handling
 use std::fs::File; //Used to work with files
 use std::fs::{OpenOptions, rename};
-use csv::{ReaderBuilder, WriterBuilder, StringRecord};//use csv::{ReaderBuilder, WriterBuilder};
-
-/*use std::any::type_name;
-
-pub fn type_of<T>(_: &T) -> &'static str {
-    type_name::<T>()
-}*/
+use csv::{ReaderBuilder, WriterBuilder};//use csv::{ReaderBuilder, WriterBuilder};
 
 pub enum Operation {
     Sell,
@@ -41,7 +35,6 @@ pub enum Operation {
         self.id == target_id
     }*/
 }
-*/
 
 #[derive(Clone)] 
 pub struct Item {
@@ -50,6 +43,7 @@ pub struct Item {
     price: f64,
     quantity: u32,
 }
+*/
 
 pub fn get_user_input(prompt: &str) -> f64 {
 	//this function is used to read the input from the keyboard of the user
@@ -108,27 +102,22 @@ pub fn write_csv_from_user(file_path: &str, id_input: &str, name_input:&str, pri
     Ok(())
 }
 
-pub fn add_product_to_inventory(file_path: &str,inventory: &mut Vec<Item>){
+pub fn add_product_to_inventory(file_path: &str){
 	//this function allows the user to add a new product to the inventory
-	//it is creating an instance of the Item struct
-    let mut item = Item{
-        id: 0,
-        name:String::new(),
-        price:0.0,
-        quantity:0,
-    };
+    let mut id: u32 = 0;
+    let mut name: String = String::new();
+    let mut price: f64 = 0.0;
+    let mut quantity: u32 = 0;
 
     //then it asks the user to add the product name, its id, price and quantity
     println!("Product Name:");
-    io::stdin().read_line(&mut item.name).expect("Failed to read line");
-    item.id = get_user_input("Enter product ID:") as u32;
-    item.price = get_user_input("Enter product price:");
-    item.quantity = get_user_input("Enter product quantity:") as u32;
-
-    inventory.push(item.clone());
+    io::stdin().read_line(&mut name).expect("Failed to read line");
+    id = get_user_input("Enter product ID:") as u32;
+    price = get_user_input("Enter product price:");
+    quantity = get_user_input("Enter product quantity:") as u32;
 
     //and then it adds a new instance (row) of this item to the csv file that contains the inventory, this way we can have the inventory stored outside the program
-    write_csv_from_user(file_path,&item.id.to_string(),&item.name.trim(),&item.price.to_string(),&item.quantity.to_string())
+    write_csv_from_user(file_path,&id.to_string(),&name.trim(),&price.to_string(),&quantity.to_string())
     .expect("Failed to write CSV");
 }
 
@@ -157,7 +146,7 @@ pub fn print_menu(){
         println!("99. Exit\n");
 }
 
-pub fn match_operation(choice: usize, file_path: &str, inventory: &mut Vec<Item>) {
+pub fn match_operation(choice: usize, file_path: &str) {
     let selected_operation: Operation = match choice {
         1 => Operation::Sell,
         2 => Operation::AddProductStockToInventory,
@@ -176,7 +165,7 @@ pub fn match_operation(choice: usize, file_path: &str, inventory: &mut Vec<Item>
     match selected_operation {
         Operation::Sell => get_id_and_then_sell(file_path),
         Operation::AddProductStockToInventory => get_id_and_then_update(file_path),//add_new_product_quantity(file_path),
-        Operation::AddProductToGasStation => add_product_to_inventory(file_path, inventory),
+        Operation::AddProductToGasStation => add_product_to_inventory(file_path),
         Operation::RemoveProductStockFromInventory => println!("Performing RemoveProductStockFromInventory"),
         Operation::UpdateProductPrice => get_id_and_then_update_price(file_path),
         Operation::SeeInventory => read_csv(file_path),//display_inventory(inventory),
@@ -335,4 +324,26 @@ pub fn change_product_price(file_path: &str, id: u32)-> Result<(), Box<dyn Error
         }
     }
     Ok(())
+}
+
+pub fn check_user_password(file_path: &str, user_account_name: &str, user_password: &str)-> Result<(), Box<dyn Error>> {
+    let file = File::open(file_path)?;
+    let mut rdr = csv::Reader::from_reader(file);
+
+    for result in rdr.records(){
+        let record = result.unwrap();
+        if user_account_name == &record[3] && user_password == &record[4] {
+            //println("Wrong combination of User Name and Password! \n");
+            return Ok(());
+        }
+    }
+    Err("Incorrect combination of user name and password".into())
+}
+
+pub fn my_program_loop(inventory_csv: &str){
+    loop {
+        print_menu();
+        let in_operation = menu_get_user_input("Enter your choice:");
+        match_operation(in_operation, &inventory_csv);
+    }
 }
