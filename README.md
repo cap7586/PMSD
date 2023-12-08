@@ -1,7 +1,7 @@
 # PRINCIPLES OF MODERN SOFTWARE DEVELOPMENT
 ## The Gas Station Exercise by Caro Paez
 
->You will have to enter a USER NAME and a PASSWORD. Try "example" for both :-)
+You will have to enter a USER NAME and a PASSWORD. Try "example" for both :-)
 
 ### The Gas Station Program can perform the following operations:
 > Sell x quantity of a product to a customer
