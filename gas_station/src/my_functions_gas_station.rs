@@ -7,6 +7,7 @@ use std::io; //io library comes from the standard library std
 use std::error::Error; //Used for error handling
 use std::fs::File; //Used to work with files
 use std::fs::{OpenOptions, rename};
+use std::{thread, time::Duration};
 use csv::{ReaderBuilder, WriterBuilder};
 
 pub enum Operation {
@@ -72,7 +73,10 @@ pub fn read_csv(file_path: &str) -> () {
 	    let quantity = record[3].parse::<u32>().unwrap(); // This is the 4th column (Item Quantity in Stock)
 
     	println!("{}, {}, {}, {}", id, name, price, quantity);
+        thread::sleep(Duration::from_millis(40));//tells the program to wait 40ms befor continuing
+        //added that so that it is not printed so fast
     }
+    thread::sleep(Duration::from_millis(150));//tells the program to wait 150ms before continuing
 }
 
 pub fn write_csv_from_user(file_path: &str, id_input: &str, name_input:&str, price_input:&str, quantity_input:&str) -> Result<(), Box<dyn Error>>{
