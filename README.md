@@ -3,6 +3,9 @@
 
 You will have to enter a USER NAME and a PASSWORD. Try "example" for both :-)
 
+Data folder contains the CSV files that represent the "Database" behind the code.
+
+
 ### The Gas Station Program can perform the following operations:
 > Sell x quantity of a product to a customer
 >
