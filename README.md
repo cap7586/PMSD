@@ -5,6 +5,10 @@ You will have to enter a USER NAME and a PASSWORD. Try "example" for both :-)
 
 Data folder contains the CSV files that represent the "Database" behind the code.
 
+main.rs and my_functions_gas_station.rs are the files that contain the code that "works"
+
+main uses the functions from my_functions_gas_station
+
 
 ### The Gas Station Program can perform the following operations:
 > Sell x quantity of a product to a customer
