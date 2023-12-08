@@ -9,8 +9,8 @@ fn main() {
 
     println!("This is the THI Student Paez Gas Station System\n\n");
     println!("To execute the program, enter a valid User Name and Password\n\n");
-    let inventory_file = "/Users/caropaez/Desktop/Universidad/PMSD/GitHub/PMSD/gas_station/Data/inventory_caro.csv";
-    let user_data_file = "/Users/caropaez/Desktop/Universidad/PMSD/GitHub/PMSD/gas_station/Data/users.csv";
+    let inventory_file = "./Data/inventory_caro.csv";
+    let user_data_file = "./Data/users.csv";
 
     let mut user_account_name_input = String::new();
     println!("Enter your User Name: ");
@@ -21,8 +21,6 @@ fn main() {
     println!("Enter your Password: ");
     io::stdin().read_line(&mut user_account_password_input).expect("Failed to read line");
     let user_account_password_input = user_account_password_input.trim();
-
-    println!("{}", user_account_password_input);
 
     match check_user_password(&user_data_file, &user_account_name_input, &user_account_password_input) {
         Ok(()) => my_program_loop(&inventory_file),
