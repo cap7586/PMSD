@@ -9,7 +9,8 @@ use std::io;
 fn main() {
     env::set_var("RUST_BACKTRACE", "1");
 
-    println!("This is the THI Student Paez Gas Station System");
+    println!("This is the THI Student Paez Gas Station System\n\n");
+    println!("To execute the program, enter a valid User Name and Password\n\n");
     let inventory_file = "/Users/caropaez/Desktop/Universidad/PMSD/GitHub/PMSD/gas_station/Data/inventory_caro.csv";
     let user_data_file = "/Users/caropaez/Desktop/Universidad/PMSD/GitHub/PMSD/gas_station/Data/users.csv";
 

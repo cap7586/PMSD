@@ -35,28 +35,41 @@ pub struct Item {
 
 pub fn get_user_input(prompt: &str) -> f64 {
 	//this function is used to read the input from the keyboard of the user
-
     println!("{}", prompt);
     let mut input = String::new();
     io::stdin().read_line(&mut input).expect("Failed to read line");
     input.trim().parse().expect("Invalid number entered")
 }
 
-pub fn read_csv(file_path: &str) -> () {
-    let file = File::open(file_path).unwrap();//This line attempts to open the file specified by the file_path. The ? operator is used to propagate any errors that may occur during the file opening process.
+pub fn menu_get_user_input(prompt: &str) -> usize {
+	//get user input from the keyboard - different return type
+    loop {
+        println!("{}", prompt);
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).expect("Failed to read line");
 
+        match input.trim().parse() {
+            Ok(value) => return value,
+            Err(_) => println!("Invalid input. Please enter a valid number."),
+        }
+    }
+}
+
+pub fn read_csv(file_path: &str) -> () {
+    //First: attempt to open the file specified by the file_path. 
+    //The ? operator is used to propagate any errors that may occur during the file opening process.
+    let file = File::open(file_path).unwrap();
+
+    //read data from file
     let mut rdr = csv::Reader::from_reader(file);
 
     println!("ID | Name | Price | Quantity ");
     for result in rdr.records() {
-        let record = result.unwrap();
-
-       // println!("{:?}", record.iter().collect::<Vec<_>>());
-
-	    let id = record[0].parse::<u32>().unwrap();
-	    let name = &record[1].trim();
-	    let price = record[2].parse::<f64>().unwrap();
-	    let quantity = record[3].parse::<u32>().unwrap();
+        let record = result.unwrap(); //this is the whole row
+	    let id = record[0].parse::<u32>().unwrap(); // this is the first column (ID)
+	    let name = &record[1].trim(); // this is the second column (Item Name)
+	    let price = record[2].parse::<f64>().unwrap(); // this is the 3 column (Item Price)
+	    let quantity = record[3].parse::<u32>().unwrap(); // This is the 4th column (Item Quantity in Stock)
 
     	println!("{}, {}, {}, {}", id, name, price, quantity);
     }
@@ -141,22 +154,8 @@ pub fn match_operation(choice: usize, file_path: &str) {
     }
 }
 
-pub fn menu_get_user_input(prompt: &str) -> usize {
-	//get user input from the keyboard and 
-    loop {
-        println!("{}", prompt);
-
-        let mut input = String::new();
-        io::stdin().read_line(&mut input).expect("Failed to read line");
-
-        match input.trim().parse() {
-            Ok(value) => return value,
-            Err(_) => println!("Invalid input. Please enter a valid number."),
-        }
-    }
-}
-
 pub fn get_id_and_then_delete(file_path: &str){
+    //gets the ID from user input
 	let id_to_delete_from_usr = get_user_input("Enter Product ID to delete: ") as u32;
 	let _ = delete_product_by_id(file_path,id_to_delete_from_usr);
 }
