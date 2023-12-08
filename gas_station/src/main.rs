@@ -2,12 +2,10 @@ mod my_functions_gas_station;
 
 use my_functions_gas_station::*;
 
-use std::env;
 use std::io;
 
 
 fn main() {
-    env::set_var("RUST_BACKTRACE", "1");
 
     println!("This is the THI Student Paez Gas Station System\n\n");
     println!("To execute the program, enter a valid User Name and Password\n\n");
